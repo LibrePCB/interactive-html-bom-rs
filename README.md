@@ -1,5 +1,7 @@
 # Interactive HTML BOM Generator
 
+[Documentation](https://docs.rs/interactive-html-bom/)
+
 A Rust library implementing a subset of
 [InteractiveHtmlBom](https://github.com/openscopeproject/InteractiveHtmlBom),
 to generate Bill of Materials for PCBs as an interactive HTML page.
