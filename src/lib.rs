@@ -455,6 +455,16 @@ impl ToJson for RefMap {
 
 /// Interactive HTML BOM structure
 ///
+/// The top-level structure to build & generate a HTML BOM.
+///
+/// <div class="warning">
+/// Please note that this struct is not completely fool-proof as it does not
+/// validate lots of the added data. So make sure you add only valid BOM data.
+/// Only the most important things are validated to avoid generating completely
+/// broken HTML pages: Footprint IDs in BOM rows, and number of fields in
+/// footprints.
+/// </div>
+///
 /// # Examples
 ///
 /// ```
@@ -512,13 +522,6 @@ impl ToJson for RefMap {
 /// // Add BOM rows (designators and their footprint IDs).
 /// ibom.bom_front.push(vec![RefMap::new("R1", id)]);
 /// ```
-///
-/// <div class="warning">
-/// Please note that this struct is not completely fool-proof regarding as
-/// it does not validate lots of the added data, so make sure you add only
-/// valid BOM data. Only the most important things are validated: Footprint IDs
-/// in BOM rows, and number of fields in footprints.
-/// </div>
 #[non_exhaustive]
 pub struct InteractiveHtmlBom {
   // Metadata
