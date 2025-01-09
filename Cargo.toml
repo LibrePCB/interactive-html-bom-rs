@@ -5,7 +5,7 @@ keywords = ["pcb", "eda", "bom"]
 repository = "https://github.com/LibrePCB/interactive-html-bom-rs"
 readme = "README.md"
 license = "MIT"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 exclude = ["/.git*", "/.reuse/", "/.rustfmt.toml", "/LICENSES/", "*.sh"]
 
