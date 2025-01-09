@@ -1,0 +1,17 @@
+[package]
+name = "interactive-html-bom"
+description = "Interactive HTML BOM Generator"
+keywords = ["pcb", "eda", "bom"]
+repository = "https://github.com/LibrePCB/interactive-html-bom-rs"
+readme = "README.md"
+license = "MIT"
+version = "0.1.0"
+edition = "2021"
+exclude = ["/.git*", "/.reuse/", "/.rustfmt.toml", "/LICENSES/", "*.sh"]
+
+[features]
+fail-on-warnings = []
+
+[dependencies]
+jzon = "0.12.5"
+lz-str = "0.2.1"

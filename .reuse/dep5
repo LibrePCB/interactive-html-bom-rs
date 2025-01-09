@@ -1,0 +1,39 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: interactive-html-bom-rs
+Source: https://github.com/LibrePCB/interactive-html-bom-rs
+
+Files:
+ .gitattributes
+ .github/*
+ .gitignore
+ .rustfmt.toml
+ Cargo.toml
+ README.md
+ src/**.rs
+ src/web/version.txt
+ tests/**.rs
+ update_web_files.sh
+Copyright: LibrePCB Developers
+License: MIT
+
+Files:
+ src/web/ibom.css
+ src/web/ibom.html
+ src/web/ibom.js
+ src/web/render.js
+ src/web/table-util.js
+ src/web/util.js
+Copyright: InteractiveHtmlBom
+License: MIT
+
+Files: src/web/split.js
+Copyright: Split.js
+License: MIT
+
+Files: src/web/pep.js
+Copyright: jQuery Foundation and other contributors
+License: MIT
+
+Files: src/web/lz-string.js
+Copyright: 2013 Pieroxy <pieroxy@pieroxy.net>
+License: WTFPL
