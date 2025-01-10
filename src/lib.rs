@@ -38,6 +38,48 @@ impl<T: ToJson> ToJson for Vec<T> {
   }
 }
 
+/// View modes
+#[derive(Clone, PartialEq)]
+pub enum ViewMode {
+  /// BOM only
+  BomOnly,
+  /// BOM left, drawings right
+  LeftRight,
+  /// BOM top, drawings bottom
+  TopBottom,
+}
+
+impl ToJson for ViewMode {
+  fn to_json(&self) -> JsonValue {
+    match self {
+      ViewMode::BomOnly => "bom-only".into(),
+      ViewMode::LeftRight => "left-right".into(),
+      ViewMode::TopBottom => "top-bottom".into(),
+    }
+  }
+}
+
+/// Highlight pin-1 modes
+#[derive(Clone, PartialEq)]
+pub enum HighlightPin1Mode {
+  /// No pins
+  None,
+  /// Selected pins
+  Selected,
+  /// All pins
+  All,
+}
+
+impl ToJson for HighlightPin1Mode {
+  fn to_json(&self) -> JsonValue {
+    match self {
+      HighlightPin1Mode::None => "none".into(),
+      HighlightPin1Mode::Selected => "selected".into(),
+      HighlightPin1Mode::All => "all".into(),
+    }
+  }
+}
+
 /// Layer enum
 #[derive(Clone, PartialEq)]
 pub enum Layer {
@@ -570,6 +612,12 @@ pub struct InteractiveHtmlBom {
   bottom_left: (f32, f32),
   top_right: (f32, f32),
 
+  /// Initial view mode
+  pub view_mode: ViewMode,
+
+  /// Hightlight pin-1 mode
+  pub highlight_pin1: HighlightPin1Mode,
+
   /// Dark mode on/off
   pub dark_mode: bool,
 
@@ -667,6 +715,8 @@ impl InteractiveHtmlBom {
       date: date.to_owned(),
       bottom_left,
       top_right,
+      view_mode: ViewMode::LeftRight,
+      highlight_pin1: HighlightPin1Mode::None,
       dark_mode: false,
       show_silkscreen: true,
       show_fabrication: true,
@@ -742,11 +792,11 @@ impl InteractiveHtmlBom {
 
     let config = object! {
         board_rotation: 0.0,
-        bom_view: "left-right",
+        bom_view: self.view_mode.to_json(),
         checkboxes: self.checkboxes.join(","),
         dark_mode: self.dark_mode,
         fields: self.fields.to_json(),
-        highlight_pin1: "none",
+        highlight_pin1: self.highlight_pin1.to_json(),
         kicad_text_formatting: false,
         layer_view: layer_view,
         offset_back_rotation: false,

@@ -26,9 +26,12 @@ fn test_everything() {
     (100.0, 100.0),
   );
 
+  bom.view_mode = ViewMode::TopBottom;
+  bom.highlight_pin1 = HighlightPin1Mode::All;
   bom.dark_mode = true;
   bom.show_silkscreen = false;
   bom.show_fabrication = false;
+  bom.show_pads = false;
   bom.checkboxes = vec!["Foo".into(), "Bar".into()];
   bom.fields = vec!["Field 1".into(), "Field 2".into()];
   bom.user_header = "<!-- header -->".into();
