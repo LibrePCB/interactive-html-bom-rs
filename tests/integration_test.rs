@@ -16,7 +16,7 @@ fn test_empty() {
 }
 
 #[test]
-fn test_simple() {
+fn test_everything() {
   let mut bom = InteractiveHtmlBom::new(
     "Test Title",
     "Test Company",
@@ -35,25 +35,36 @@ fn test_simple() {
   bom.user_footer = "<!-- footer -->".into();
   bom.user_js = "<!-- js -->".into();
 
-  bom
-    .drawings
-    .push(Drawing::new(DrawingLayer::Edge, "", 0.1, false));
   bom.drawings.push(Drawing::new(
+    DrawingKind::Polygon,
+    DrawingLayer::Edge,
+    "",
+    0.1,
+    false,
+  ));
+  bom.drawings.push(Drawing::new(
+    DrawingKind::Polygon,
     DrawingLayer::SilkscreenFront,
     "M 0 0",
     0.1,
     false,
   ));
-  bom
-    .drawings
-    .push(Drawing::new(DrawingLayer::SilkscreenBack, "", 0.1, false));
   bom.drawings.push(Drawing::new(
+    DrawingKind::ReferenceText,
+    DrawingLayer::SilkscreenBack,
+    "",
+    0.1,
+    false,
+  ));
+  bom.drawings.push(Drawing::new(
+    DrawingKind::Polygon,
     DrawingLayer::FabricationFront,
     "M 0 0",
     0.1,
     false,
   ));
   bom.drawings.push(Drawing::new(
+    DrawingKind::ValueText,
     DrawingLayer::FabricationBack,
     "M 0 0",
     0.1,

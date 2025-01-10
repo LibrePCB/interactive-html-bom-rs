@@ -56,6 +56,17 @@ impl ToJson for Layer {
   }
 }
 
+/// Drawing kind
+#[derive(PartialEq)]
+pub enum DrawingKind {
+  /// Polygon
+  Polygon,
+  /// Component reference designator text
+  ReferenceText,
+  /// Component value text
+  ValueText,
+}
+
 /// Drawing layer
 #[derive(PartialEq)]
 pub enum DrawingLayer {
@@ -74,6 +85,7 @@ pub enum DrawingLayer {
 /// Drawing structure (SVG polygon)
 #[non_exhaustive]
 pub struct Drawing {
+  kind: DrawingKind,
   layer: DrawingLayer,
   svgpath: String,
   width: f32,
@@ -85,6 +97,7 @@ impl Drawing {
   ///
   /// # Arguments
   ///
+  /// * `kind` - Drawing kind.
   /// * `layer` - Drawing layer.
   /// * `svgpath` - Outline as an SVG path \[mm\].
   /// * `width` - Line width \[mm\].
@@ -94,12 +107,14 @@ impl Drawing {
   ///
   /// Returns the new object.
   pub fn new(
+    kind: DrawingKind,
     layer: DrawingLayer,
     svgpath: &str,
     width: f32,
     filled: bool,
   ) -> Drawing {
     Drawing {
+      kind,
       layer,
       svgpath: svgpath.to_owned(),
       width,
@@ -110,12 +125,25 @@ impl Drawing {
 
 impl ToJson for Drawing {
   fn to_json(&self) -> JsonValue {
-    object! {
-      type: "polygon",
+    let mut obj = object! {
       svgpath: self.svgpath.clone(),
-      width: self.width,
       filled: self.filled,
+    };
+    match self.kind {
+      DrawingKind::Polygon => {
+        obj["type"] = "polygon".into();
+        obj["width"] = self.width.into();
+      }
+      DrawingKind::ReferenceText => {
+        obj["thickness"] = self.width.into();
+        obj["ref"] = 1.into();
+      }
+      DrawingKind::ValueText => {
+        obj["thickness"] = self.width.into();
+        obj["val"] = 1.into();
+      }
     }
+    obj
   }
 }
 
@@ -484,12 +512,14 @@ impl ToJson for RefMap {
 ///
 /// // Draw PCB.
 /// ibom.drawings.push(Drawing::new(
+///   DrawingKind::Polygon,             // Kind of drawing
 ///   DrawingLayer::Edge,               // Layer
 ///   "M 0 0 H 100 V 80 H -100 V -80",  // SVG path
 ///   0.1,                              // Line width
 ///   false,                            // Filled
 /// ));
 /// ibom.drawings.push(Drawing::new(
+///   DrawingKind::ReferenceText,
 ///   DrawingLayer::SilkscreenFront,
 ///   "M 10 10 H 80 V 60 H -80 V -60",
 ///   0.1,
