@@ -6,7 +6,7 @@ repository = "https://github.com/LibrePCB/interactive-html-bom-rs"
 documentation = "https://docs.rs/interactive-html-bom/"
 readme = "README.md"
 license = "MIT"
-version = "0.2.0"
+version = "0.2.1"
 edition = "2021"
 exclude = ["/.git*", "/.reuse/", "/.rustfmt.toml", "/LICENSES/", "*.sh"]
 
