@@ -621,6 +621,12 @@ pub struct InteractiveHtmlBom {
   /// Dark mode on/off
   pub dark_mode: bool,
 
+  /// Board drawings rotation \[°\]
+  pub board_rotation: f32,
+
+  /// Whether to offset the back side rotation or not
+  pub offset_back_rotation: bool,
+
   /// Silkscreen visibility
   pub show_silkscreen: bool,
 
@@ -718,6 +724,8 @@ impl InteractiveHtmlBom {
       view_mode: ViewMode::LeftRight,
       highlight_pin1: HighlightPin1Mode::None,
       dark_mode: false,
+      board_rotation: 0.0,
+      offset_back_rotation: false,
       show_silkscreen: true,
       show_fabrication: true,
       show_pads: true,
@@ -791,7 +799,7 @@ impl InteractiveHtmlBom {
     };
 
     let config = object! {
-        board_rotation: 0.0,
+        board_rotation: (self.board_rotation / 5.0) as i32,
         bom_view: self.view_mode.to_json(),
         checkboxes: self.checkboxes.join(","),
         dark_mode: self.dark_mode,
@@ -799,7 +807,7 @@ impl InteractiveHtmlBom {
         highlight_pin1: self.highlight_pin1.to_json(),
         kicad_text_formatting: false,
         layer_view: layer_view,
-        offset_back_rotation: false,
+        offset_back_rotation: self.offset_back_rotation,
         redraw_on_drag: true,
         show_fabrication: self.show_fabrication,
         show_pads: self.show_pads,

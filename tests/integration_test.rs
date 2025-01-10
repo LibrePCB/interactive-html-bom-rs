@@ -29,6 +29,8 @@ fn test_everything() {
   bom.view_mode = ViewMode::TopBottom;
   bom.highlight_pin1 = HighlightPin1Mode::All;
   bom.dark_mode = true;
+  bom.board_rotation = 45.0;
+  bom.offset_back_rotation = true;
   bom.show_silkscreen = false;
   bom.show_fabrication = false;
   bom.show_pads = false;
