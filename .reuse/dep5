@@ -8,6 +8,7 @@ Files:
  .gitignore
  .rustfmt.toml
  Cargo.toml
+ CHANGELOG.md
  README.md
  src/**.rs
  src/web/version.txt
