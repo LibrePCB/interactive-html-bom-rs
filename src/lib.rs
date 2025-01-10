@@ -309,6 +309,7 @@ pub struct Pad {
   svgpath: String,
   drill_size: Option<(f32, f32)>,
   net: Option<String>,
+  pin1: bool,
 }
 
 impl Pad {
@@ -322,6 +323,7 @@ impl Pad {
   /// * `svgpath` - Pad shape as SVG path \[mm\].
   /// * `drill_size` - Drill size (w, h) \[mm\] (only for THT pads).
   /// * `net` - Net name (optional).
+  /// * `pin1` - Whether this is considered as the pin-1 or not.
   ///
   /// # Returns
   ///
@@ -333,6 +335,7 @@ impl Pad {
     svgpath: &str,
     drill_size: Option<(f32, f32)>,
     net: Option<&str>,
+    pin1: bool,
   ) -> Pad {
     Pad {
       layers: layers.into(),
@@ -341,6 +344,7 @@ impl Pad {
       svgpath: svgpath.to_owned(),
       drill_size,
       net: net.map(|s| s.to_owned()),
+      pin1,
     }
   }
 }
@@ -367,6 +371,9 @@ impl ToJson for Pad {
     }
     if let Some(net) = &self.net {
       obj["net"] = net.clone().into();
+    }
+    if self.pin1 {
+      obj["pin1"] = 1.into();
     }
     obj
   }
@@ -542,6 +549,7 @@ impl ToJson for RefMap {
 ///         "M -1 -1 H 2 V 2 H -2 V -2",    // Pad shape (SVG)
 ///         None,                           // Pad drill
 ///         None,                           // Pad net
+///         true,                           // Pin 1
 ///       ),
 ///       // [...]
 ///     ],

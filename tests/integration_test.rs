@@ -120,7 +120,15 @@ fn test_everything() {
     (5.0, 5.0),
     &["Value 1".into(), "Value 2".into()],
     &[
-      Pad::new(&[Layer::Front], (0.0, -5.0), 45.0, "M 0 0", None, None),
+      Pad::new(
+        &[Layer::Front],
+        (0.0, -5.0),
+        45.0,
+        "M 0 0",
+        None,
+        None,
+        false,
+      ),
       Pad::new(
         &[Layer::Front, Layer::Back],
         (0.0, 5.0),
@@ -128,6 +136,7 @@ fn test_everything() {
         "M 0 0",
         Some((0.5, 1.0)),
         Some("net 4"),
+        true,
       ),
     ],
     true,
